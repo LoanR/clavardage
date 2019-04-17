@@ -9,7 +9,25 @@
   </header>
   <script src="/socket.io/socket.io.js"></script>
   <script>
-    
+    function isUserNameValid(userName) {
+      return userName.trim() !== '' && userName.length <= 10;
+    }
+
+    function setUserName() {
+      if (!localStorage.getItem('userName')) {
+        let userName = '';
+        while (!isUserNameValid(userName)) {
+          userName = prompt('What is your username? (10 char. max)');
+        }
+        localStorage.setItem('userName', userName);
+      }
+    }
+     
+    setUserName();
+    const socket = io.connect('http://localhost:8080');
+    socket.on('newUser', () => {
+      setUserName();
+    })
   </script>
 </body>
 </html>
