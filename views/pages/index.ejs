@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%- include('../partials/head', {title: pageTitle}); %>
+  <%- include('../partials/shared/head', {title: pageTitle}); %>
 </head>
 <body>
   <header>
-    <%- include('../partials/header', {chatRoom: chatRoom}); %>
+    <%- include('../partials/shared/header', {chatRoom: chatRoom}); %>
   </header>
+  <section>
+    <% if (typeof entries !== 'undefined' && entries !== null && entries.length !== 0) { %>
+      <%- include('../partials/room/entries', {entries: entries}); %>
+    <% } %>
+  </section>
   <script src="/socket.io/socket.io.js"></script>
   <script>
     function isUserNameValid(userName) {
@@ -22,7 +27,7 @@
         localStorage.setItem('userName', userName);
       }
     }
-     
+
     setUserName();
     const socket = io.connect('http://localhost:8080');
     socket.on('newUser', () => {

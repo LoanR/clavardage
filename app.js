@@ -18,17 +18,74 @@ const io = require('socket.io').listen(server);
 const MESSAGE = 0;
 const DATE = 1;
 const CONNECTION = 2;
+const DISCONNECTION = 3;
+
+const entryTypes = {
+  message: MESSAGE,
+  date: DATE,
+  connection: CONNECTION,
+  disconnection: DISCONNECTION,
+};
 
 let chatRooms = [
   {
     name: 'seed test',
     url: 'seedtest',
-    messages: [
+    entries: [
       {
         type: MESSAGE,
         timestamp: '',
         content: 'blablabla very interesting',
         author: 'username',
+      },
+      {
+        type: DATE,
+        timestamp: 'Monday, april 12th, 2028',
+      },
+      {
+        type: MESSAGE,
+        timestamp: '',
+        content: 'Not that interesting',
+        author: 'Jo',
+      },
+      {
+        type: CONNECTION,
+        timestamp: '12:26',
+        user: 'Mark',
+      },
+      {
+        type: MESSAGE,
+        timestamp: '',
+        content: 'Not that interesting',
+        author: 'Mark',
+      },
+      {
+        type: DISCONNECTION,
+        timestamp: '12:31',
+        user: 'Mark',
+      },
+    ],
+  },
+  {
+    name: 'Another test',
+    url: 'anothertest',
+    entries: [
+      {
+        type: MESSAGE,
+        timestamp: '12:28',
+        content: 'message in another room',
+        author: 'mister',
+      },
+      {
+        type: CONNECTION,
+        timestamp: '',
+        user: 'B',
+      },
+      {
+        type: MESSAGE,
+        timestamp: '12:30',
+        content: 'another thing',
+        author: 'B',
       },
     ],
   },
@@ -41,7 +98,12 @@ app.get('/', (req, res) => {
   if (!currentRoom) {
     res.redirect('/');
   } else {
-    res.render('pages/index.ejs', { pageTitle: `Clavardage ${currentRoom.name}`, chatRoom: currentRoom.name });
+    res.render('pages/index.ejs', {
+      pageTitle: `Clavardage ${currentRoom.name}`,
+      chatRoom: currentRoom.name,
+      entries: currentRoom.entries,
+      entryTypes,
+    });
   }
 }).use((ignore, res) => {
   res.setHeader('Content-Type', 'test/plain');

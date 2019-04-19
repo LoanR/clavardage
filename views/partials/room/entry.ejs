@@ -1,0 +1,11 @@
+<li>
+  <% if (entry.type === entryTypes.message) { %>
+    <%- include('./messageEntry', {message: entry}); %>
+  <% } else if (entry.type === entryTypes.date) { %>
+    <%- include('./dateEntry', {date: entry}); %>
+  <% } else if (entry.type === entryTypes.connection) { %>
+    <%- include('./connectionEntry', {connection: entry}); %>
+  <% } else if (entry.type === entryTypes.disconnection) { %>
+    <%- include('./disconnectionEntry', {disconnection: entry}); %>
+  <% } %>
+</li>

@@ -1,0 +1,5 @@
+<ul>
+  <% entries.forEach(entry => { %>
+    <%- include('./entry', {entry: entry, entryTypes}); %>
+  <% }) %>
+</ul>
