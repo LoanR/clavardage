@@ -5,7 +5,7 @@
     </span>
     <br>
     <span>
-      <%= entry.timestamp %>
+      <%= entry.timestamp.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' }) %>
     </span>
   </p>
 </div>

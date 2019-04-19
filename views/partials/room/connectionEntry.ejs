@@ -3,6 +3,6 @@
     <%= connection.user %>
     <%= connection.inRoom === true ? 'arrived' : 'left' %>
     at
-    <%= connection.timestamp %>.
+    <%= connection.timestamp.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' }) %>.
   </em>
 </div>

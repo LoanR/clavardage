@@ -32,36 +32,36 @@ let chatRooms = [
     entries: [
       {
         type: MESSAGE,
-        timestamp: '',
+        timestamp: new Date(Date.UTC(2016, 11, 20, 3, 10, 12)),
         content: 'blablabla very interesting',
         author: 'username',
       },
       {
         type: DATE,
-        timestamp: 'Monday, april 12th, 2028',
+        timestamp: new Date(Date.UTC(2016, 11, 20, 3, 12, 45)),
       },
       {
         type: MESSAGE,
-        timestamp: '',
+        timestamp: new Date(Date.UTC(2016, 11, 20, 3, 13, 2)),
         content: 'Not that interesting',
         author: 'Jo',
       },
       {
         type: CONNECTION,
         inRoom: true,
-        timestamp: '12:26',
+        timestamp: new Date(Date.UTC(2016, 11, 20, 3, 14, 31)),
         user: 'Mark',
       },
       {
         type: MESSAGE,
-        timestamp: '',
+        timestamp: new Date(Date.UTC(2016, 11, 20, 3, 15, 1)),
         content: 'Not that interesting',
         author: 'Mark',
       },
       {
         type: CONNECTION,
         inRoom: false,
-        timestamp: '12:31',
+        timestamp: new Date(Date.UTC(2016, 11, 20, 3, 16, 34)),
         user: 'Mark',
       },
     ],
@@ -72,19 +72,19 @@ let chatRooms = [
     entries: [
       {
         type: MESSAGE,
-        timestamp: '12:28',
+        timestamp: new Date(Date.UTC(2016, 11, 21, 3, 16, 34)),
         content: 'message in another room',
         author: 'mister',
       },
       {
         type: CONNECTION,
         inRoom: true,
-        timestamp: '',
+        timestamp: new Date(Date.UTC(2016, 11, 21, 3, 16, 56)),
         user: 'B',
       },
       {
         type: MESSAGE,
-        timestamp: '12:30',
+        timestamp: new Date(Date.now()),
         content: 'another thing',
         author: 'B',
       },

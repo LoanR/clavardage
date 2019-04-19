@@ -1,5 +1,5 @@
 <div>
   <p>
-    ---- <%= date.timestamp %> ----
+    ---- <%= date.timestamp.toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %> ----
   </p>
 </div>
