@@ -1,0 +1,5 @@
+<ul>
+  <% chatRooms.forEach(room => { %>
+    <%- include('./room', {room: room}); %>
+  <% }) %>
+</ul>

@@ -9,7 +9,9 @@
   </header>
   <section>
     <% if (typeof entries !== 'undefined' && entries !== null && entries.length !== 0) { %>
-      <%- include('../partials/room/entries', {entries: entries}); %>
+      <%- include('../partials/roomDetail/entries', {entries}); %>
+    <% } else { %>
+      <%- include('../partials/roomList/rooms', {chatRooms}) %>
     <% } %>
   </section>
   <script src="/socket.io/socket.io.js"></script>

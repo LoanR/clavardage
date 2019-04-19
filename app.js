@@ -93,7 +93,7 @@ let chatRooms = [
 ];
 
 app.get('/', (req, res) => {
-  res.render('pages/index.ejs', { pageTitle: 'Clavardage', chatRoom: null });
+  res.render('pages/index.ejs', { pageTitle: 'Clavardage', chatRoom: null, chatRooms });
 }).get('/:roomName', (req, res) => {
   const currentRoom = chatRooms.find(room => room.url === req.params.roomName);
   if (!currentRoom) {
