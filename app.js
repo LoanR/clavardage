@@ -18,13 +18,11 @@ const io = require('socket.io').listen(server);
 const MESSAGE = 0;
 const DATE = 1;
 const CONNECTION = 2;
-const DISCONNECTION = 3;
 
 const entryTypes = {
   message: MESSAGE,
   date: DATE,
   connection: CONNECTION,
-  disconnection: DISCONNECTION,
 };
 
 let chatRooms = [
@@ -50,6 +48,7 @@ let chatRooms = [
       },
       {
         type: CONNECTION,
+        inRoom: true,
         timestamp: '12:26',
         user: 'Mark',
       },
@@ -60,7 +59,8 @@ let chatRooms = [
         author: 'Mark',
       },
       {
-        type: DISCONNECTION,
+        type: CONNECTION,
+        inRoom: false,
         timestamp: '12:31',
         user: 'Mark',
       },
@@ -78,6 +78,7 @@ let chatRooms = [
       },
       {
         type: CONNECTION,
+        inRoom: true,
         timestamp: '',
         user: 'B',
       },

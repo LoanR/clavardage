@@ -1,5 +1,8 @@
 <div>
   <em>
-    <%= connection.user %> arrived at <%= connection.timestamp %>.
+    <%= connection.user %>
+    <%= connection.inRoom === true ? 'arrived' : 'left' %>
+    at
+    <%= connection.timestamp %>.
   </em>
 </div>
