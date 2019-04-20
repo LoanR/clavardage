@@ -40,6 +40,9 @@
     socket.on('newUser', () => {
       setUserName();
     })
-  </script>
+    socket.on('newEntry', (renderedEntry) => {
+      document.getElementById('entries').innerHTML += renderedEntry;
+    })
+    </script>
 </body>
 </html>
