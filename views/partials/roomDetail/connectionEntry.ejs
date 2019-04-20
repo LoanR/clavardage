@@ -1,6 +1,6 @@
 <div>
   <em>
-    <%= connection.user %>
+    <%- connection.user %>
     <%= connection.inRoom === true ? 'arrived' : 'left' %>
     at
     <%= connection.timestamp.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' }) %>.
