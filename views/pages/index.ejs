@@ -7,13 +7,18 @@
   <header>
     <%- include('../partials/shared/header', {chatRoom: chatRoom}); %>
   </header>
-  <section>
-    <% if (typeof entries !== 'undefined' && entries !== null && entries.length !== 0) { %>
+  <% if (typeof entries !== 'undefined' && entries !== null && entries.length !== 0) { %>
+    <section>
       <%- include('../partials/roomDetail/entries', {entries}); %>
-    <% } else { %>
+    </section>
+    <aside>
+      <%- include('../partials/roomDetail/messageInput', {roomUrl: machin}) %>
+    </aside>
+  <% } else { %>
+    <section>
       <%- include('../partials/roomList/rooms', {chatRooms}) %>
-    <% } %>
-  </section>
+    </section>
+  <% } %>
   <script src="/socket.io/socket.io.js"></script>
   <script>
     function isUserNameValid(userName) {

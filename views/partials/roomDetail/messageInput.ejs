@@ -1,0 +1,26 @@
+<div>
+  <input type="text" name="content" id="message-content">
+  <button type="button" onclick="sendMessage()">Send message</button>
+  <small id="error-messages"></small>
+</div>
+
+<script>  
+  function sendMessage() {
+    setUserName();
+    const messageContent = document.getElementById('message-content').value;
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/messages', true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.send(JSON.stringify({
+      author: localStorage.getItem('userName'),
+      content: messageContent,
+      roomUrl: "<%= roomUrl %>",
+    }));
+    document.getElementById('message-content').value = null;
+    xhr.onload = function() {
+      if (xhr.status != 200) {
+        document.getElementById('error-messages').innerHTML = JSON.parse(xhr.response).errors.join(' ');
+      }
+    };
+  }
+</script>
