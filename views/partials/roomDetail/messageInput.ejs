@@ -1,10 +1,15 @@
-<div>
+<form id="message-form">
   <input type="text" name="content" id="message-content">
-  <button type="button" onclick="sendMessage()">Send message</button>
+  <input type="submit" value="Send message">
   <small id="error-messages"></small>
-</div>
+</form>
 
-<script>  
+<script>
+  document.getElementById('message-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    sendMessage();
+  });
+
   function sendMessage() {
     setUserName();
     const messageContent = document.getElementById('message-content').value;
