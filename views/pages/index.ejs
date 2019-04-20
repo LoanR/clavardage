@@ -22,7 +22,7 @@
   <script src="/socket.io/socket.io.js"></script>
   <script>
     function isUserNameValid(userName) {
-      return userName.trim() !== '' && userName.length <= 10;
+      return userName !== null && userName.trim() !== '' && userName.length <= 10;
     }
 
     function setUserName() {
