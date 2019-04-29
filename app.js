@@ -84,11 +84,15 @@ const chatRooms = [
       },
     ],
   },
+  {
+    name: 'Once again',
+    url: 'onceagain',
+    entries: [],
+  },
 ];
 
-function sendNewEntry(currentRoom, newEntry, res) {
+function sendNewEntry(currentRoom, newEntry) {
   currentRoom.entries.push(newEntry);
-  res.sendStatus(200);
   let newEntryRender = null;
   ejs.renderFile(
     './views/partials/roomDetail/entry.ejs',
@@ -111,6 +115,21 @@ function sendNewEntry(currentRoom, newEntry, res) {
   );
 }
 
+function chronologicalSort(entries) {
+  if (entries.length > 0) {
+    return entries.sort((x, y) => x.timestamp - y.timestamp);
+  }
+  return entries;
+}
+
+function nowIsAnotherDay(lastEntry) {
+  const lastEntryDate = new Date(lastEntry.timestamp);
+  lastEntryDate.setHours(0, 0, 0, 0);
+  const now = new Date(Date.now());
+  now.setHours(0, 0, 0, 0);
+  return lastEntryDate.getTime() < now.getTime();
+}
+
 app.use((req, ignore, next) => {
   req.io = io;
   next();
@@ -120,7 +139,7 @@ io.on('connection', (socket) => {
   socket.emit('newUser');
 });
 
-app.get('/', (req, res) => {
+app.get('/', (ignore, res) => {
   res.render('pages/index.ejs', {
     pageTitle: 'Clavardage',
     chatRoom: null,
@@ -136,8 +155,8 @@ app.get('/:roomName', (req, res) => {
     res.render('pages/index.ejs', {
       pageTitle: `Clavardage ${currentRoom.name}`,
       chatRoom: currentRoom.name,
-      machin: currentRoom.url,
-      entries: currentRoom.entries,
+      roomUrl: currentRoom.url,
+      entries: chronologicalSort(currentRoom.entries),
       entryTypes,
     });
   }
@@ -158,13 +177,26 @@ app.post('/messages', urlencodedParser, (req, res) => {
   if (errors.length > 0) {
     res.status(400).send({ errors });
   } else {
+    if (
+      currentRoom.entries.length === 0 || (
+        currentRoom.entries.length >= 2
+        && nowIsAnotherDay(currentRoom.entries[currentRoom.entries.length - 1])
+      )
+    ) {
+      const newDate = {
+        type: DATE,
+        timestamp: new Date(Date.now()),
+      };
+      sendNewEntry(currentRoom, newDate);
+    }
     const newEntry = {
       type: MESSAGE,
       timestamp: new Date(Date.now()),
       content: ent.encode(req.body.content),
       author: ent.encode(req.body.author),
     };
-    sendNewEntry(currentRoom, newEntry, res);
+    sendNewEntry(currentRoom, newEntry);
+    res.sendStatus(200);
   }
 });
 

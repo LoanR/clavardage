@@ -7,12 +7,12 @@
   <header>
     <%- include('../partials/shared/header', {chatRoom: chatRoom}); %>
   </header>
-  <% if (typeof entries !== 'undefined' && entries !== null && entries.length !== 0) { %>
+  <% if (typeof entries !== 'undefined' && entries !== null) { %>
     <section>
       <%- include('../partials/roomDetail/entries', {entries}); %>
     </section>
     <aside>
-      <%- include('../partials/roomDetail/messageInput', {roomUrl: machin}) %>
+      <%- include('../partials/roomDetail/messageInput', {roomUrl}) %>
     </aside>
   <% } else { %>
     <section>
